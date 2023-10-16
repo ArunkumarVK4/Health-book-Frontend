@@ -8,7 +8,6 @@ import { setUserInfo } from "../redux/reducers/rootSlice";
 import jwt_decode from "jwt-decode";
 import fetchData from "../helper/apiCall";
 
-
 function Login() {
   const dispatch = useDispatch();
   const [formDetails, setFormDetails] = useState({
@@ -26,7 +25,7 @@ function Login() {
   };
 
   const formSubmit = async (e) => {
-    console.log(formDetails)
+    console.log(formDetails);
     try {
       e.preventDefault();
       const { email, password } = formDetails;
@@ -41,7 +40,7 @@ function Login() {
           email,
           password,
         }),
-      
+
         {
           pending: "Logging in...",
           success: "Login successfully",
@@ -59,7 +58,9 @@ function Login() {
 
   const getUser = async (id) => {
     try {
-      const temp = await fetchData(`https://health-otpr.onrender.com/api/user/getuser/${id}`);
+      const temp = await fetchData(
+        `https://health-otpr.onrender.com/api/user/getuser/${id}`
+      );
       dispatch(setUserInfo(temp));
       return navigate("/");
     } catch (error) {
@@ -71,10 +72,7 @@ function Login() {
     <section className="register-section flex-center">
       <div className="register-container flex-center">
         <h2 className="form-heading">Sign In</h2>
-        <form
-          onSubmit={formSubmit}
-          className="register-form"
-        >
+        <form onSubmit={formSubmit} className="register-form">
           <input
             type="email"
             name="email"
@@ -91,23 +89,34 @@ function Login() {
             value={formDetails.password}
             onChange={inputChange}
           />
-          <button
-            type="submit"
-            className="btn form-btn"
-          >
+          <button type="submit" className="btn form-btn">
             sign in
           </button>
         </form>
         <p>
           Not a user?{" "}
-          <NavLink
-            className="login-link"
-            to={"/register"}
-          >
+          <NavLink className="login-link" to={"/register"}>
             Register
           </NavLink>
         </p>
       </div>
+      <br />
+      <table style={{marginLeft:"100px"}}>
+        <thead>
+          <tr>
+            <th>User Login</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>Username: arun@gmail.com</tr>
+          <tr>Password: 12345</tr>
+        </tbody>
+        <tr>
+            <th>Admin Login</th>
+          </tr>
+          <tr>Username: arunadmin@gmail.com</tr>
+          <tr>Password: 12345</tr>
+      </table>
     </section>
   );
 }
